@@ -1,12 +1,17 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+// Define this when pathfinding code cannot calculate long or complex paths
+// Hopefully this will be fixed at some point and these ifdefs can be culled
+#define BROKEN_PATHFIND
+
 #include "map.t.hpp"
 
 #include <netinet/in.h>
 
 #include <functional>
 #include <list>
+#include <stack>
 
 #include "../common/db.hpp"
 #include "../common/matrix.hpp"
@@ -383,6 +388,13 @@ public:
 constexpr int MOB_XP_BONUS_BASE = 1024;
 constexpr int MOB_XP_BONUS_SHIFT = 10;
 
+#ifdef BROKEN_PATHFIND
+struct Crumb {
+  int x;
+  int y;
+};
+#endif
+
 struct mob_data : block_list
 {
     short n;
@@ -452,6 +464,9 @@ struct mob_data : block_list
     // [Fate] mob-specific stats
     earray<unsigned short, mob_stat, mob_stat::LAST> stats;
     short size;
+#ifdef BROKEN_PATHFIND
+    std::stack<Crumb> crumbs;
+#endif
 };
 
 struct BlockLists

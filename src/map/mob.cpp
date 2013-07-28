@@ -880,6 +880,9 @@ int mob_changestate(dumb_ptr<mob_data> md, MS state, bool type)
             md->deletetimer.cancel();
             md->hp = md->target_id = md->attacked_id = 0;
             md->state.attackable = false;
+#ifdef BROKEN_PATHFIND
+            while (!md->crumbs.empty()) md->crumbs.pop();
+#endif
         }
             break;
     }
@@ -1717,6 +1720,23 @@ int mob_randomwalk(dumb_ptr<mob_data> md, tick_t tick)
 }
 
 /*==========================================
+ * Returns true if MOB is within it's spawn area
+ *------------------------------------------
+ */
+static
+int mob_isathome(dumb_ptr<mob_data> md)
+{
+  if (md->spawn.x0 == 0 && md->spawn.y0 == 0) /* If spawn is random.. anywhere is home */
+    return 1;
+
+  if (md->bl_x >= (md->spawn.x0 - md->spawn.xs) && md->bl_x <= (md->spawn.x0 + md->spawn.xs))
+    if (md->bl_y >= (md->spawn.y0 - md->spawn.ys) && md->bl_y <= (md->spawn.y0 + md->spawn.ys))
+      return 1;
+
+  return 0;
+}
+
+/*==========================================
  * AI of MOB whose is near a Player
  *------------------------------------------
  */
@@ -1727,6 +1747,9 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
     dumb_ptr<map_session_data> tsd = NULL;
     dumb_ptr<block_list> tbl = NULL;
     dumb_ptr<flooritem_data> fitem;
+#ifdef BROKEN_PATHFIND
+    struct Crumb c;
+#endif
     int i, dx, dy, ret, dist;
     int attack_type = 0;
     MobMode mode;
@@ -1887,7 +1910,7 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
                         return;   // 既に移動中
                     if (!mob_can_reach(md, tbl, (md->min_chase > 13) ? md->min_chase : 13))
                         mob_unlocktarget(md, tick);    // 移動できないのでタゲ解除（IWとか？）
-                    else
+                    else // Make the MOB stalk the PC
                     {
                         // 追跡
                         md->next_walktime = tick + std::chrono::milliseconds(500);
@@ -1917,9 +1940,18 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
                             }
                             ret = mob_walktoxy(md, md->bl_x + dx, md->bl_y + dy, 0);
                             i++;
+#ifdef BROKEN_PATHFIND
+                            // The target has moved enough where the mob needed to recalculate it's path
+                            // Drop a breadcrumb we can follow home!
+                            c.x = md->bl_x;
+                            c.y = md->bl_y;
+                            md->crumbs.push(c);
+#endif
                         }
                         while (ret && i < 5);
 
+                        // I haven't seen ret > 0 ever. I wish I could read the comments. --Camel
+#warning "Possible unused code"
                         if (ret)
                         {       // 移動不可能な所からの攻撃なら2歩下る
                             if (dx < 0)
@@ -2025,8 +2057,29 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
         }
 
         // Random movement
-        if (mob_randomwalk(md, tick))
-            return;
+	// Camel: Second test
+	if (mob_isathome(md)) { // Mob's at home. Randomly wander around.
+		mob_randomwalk(md, tick);
+#ifdef BROKEN_PATHFIND
+                // If we're home we can delete our crumbs
+                while (!md->crumbs.empty()) md->crumbs.pop();
+#endif
+        }
+        else {
+#ifdef BROKEN_PATHFIND
+          if (!md->crumbs.empty()) {
+            c = md->crumbs.top();
+            mob_walktoxy(md, c.x, c.y, 0); // Walk to the nearest crumb.
+            if (md->bl_x == c.x && md->bl_y == c.y) // On top of crumb. Eat it.
+              md->crumbs.pop();
+          }
+          else {
+            mob_walktoxy(md, md->spawn.x0, md->spawn.y0, 0);
+          }
+#else
+          mob_walktoxy(md, md->spawn.x0, md->spawn.y0, 0);
+#endif
+        }
     }
 
     // Since he has finished walking, it stands by.
@@ -2094,6 +2147,9 @@ void mob_ai_sub_lazy(dumb_ptr<block_list> bl, tick_t tick)
         if (md->bl_m->users > 0)
         {
             // Since PC is in the same map, somewhat better negligent processing is carried out.
+
+	    // Camel: TODO: Walk or warp the mob home
+
 
             // It sometimes moves.
             if (random_::chance(MOB_LAZYMOVEPERC))
