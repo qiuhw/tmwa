@@ -1409,14 +1409,14 @@ int npc_parse_mob(const char *w1, const char *, const char *w3, const char *w4)
     int i;
     char mapname[24];
     char eventname[24] = "";
+    char flags[10] = "";
     dumb_ptr<mob_data> md;
 
     xs = ys = 0;
     int delay1_ = 0, delay2_ = 0;
     // 引数の個数チェック
     if (sscanf(w1, "%[^,],%d,%d,%d,%d", mapname, &x, &y, &xs, &ys) < 3 ||
-        sscanf(w4, "%d,%d,%d,%d,%s", &mob_class, &num, &delay1_, &delay2_,
-                eventname) < 2)
+        sscanf(w4, "%d,%d,%d,%d,%23[^,]%9s", &mob_class, &num, &delay1_, &delay2_, eventname, flags) < 2)
     {
         PRINTF("bad monster line : %s\n", w3);
         return 1;
@@ -1474,6 +1474,16 @@ int npc_parse_mob(const char *w1, const char *, const char *w3, const char *w4)
         md->bl_type = BL::MOB;
         map_addiddb(md);
         mob_spawn(md->bl_id);
+
+        for (x=0; x < strlen(flags); x++)
+        {
+            switch (flags[x]) {
+                case 'g':
+                    md->aiflags.guard = 1;
+                default:
+                    break;
+            }
+        }
 
         npc_mob++;
     }

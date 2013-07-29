@@ -881,7 +881,8 @@ int mob_changestate(dumb_ptr<mob_data> md, MS state, bool type)
             md->hp = md->target_id = md->attacked_id = 0;
             md->state.attackable = false;
 #ifdef BROKEN_PATHFIND
-            md->crumbs = std::stack<Crumb>();
+            if (md->aiflags.guard)
+                md->crumbs = std::stack<Crumb>();
 #endif
         }
             break;
@@ -1940,7 +1941,8 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
 #ifdef BROKEN_PATHFIND
                             // The target has moved enough where the mob needed to recalculate it's path
                             // Drop a breadcrumb we can follow home!
-                            md->crumbs.push({md->bl_x, md->bl_y});
+                            if (md->aiflags.guard)
+                                md->crumbs.push({md->bl_x, md->bl_y});
 #endif
                         }
                         while (ret && i < 5);
@@ -2052,29 +2054,31 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
         }
 
         // Random movement
-	if (mob_isathome(md)) { // Mob's at home. Randomly wander around.
-	  mob_randomwalk(md, tick);
+        if (md->aiflags.guard)
+        {
+	    if (mob_isathome(md))
+            {   // Mob's at home. Randomly wander around.
+                mob_randomwalk(md, tick);
 #ifdef BROKEN_PATHFIND
-          // If we're home we can delete our crumbs
-          md->crumbs = std::stack<Crumb>();
-#endif
-        }
-        else {
-#ifdef BROKEN_PATHFIND
-          if (!md->crumbs.empty()) {
-            Crumb c;
-            c = md->crumbs.top();
-            mob_walktoxy(md, c.x, c.y, 0); // Walk to the nearest crumb.
-            if (md->bl_x == c.x && md->bl_y == c.y) // On top of crumb. Eat it.
-              md->crumbs.pop();
-          }
-          else {
-            mob_walktoxy(md, md->spawn.x0, md->spawn.y0, 0);
-          }
+                // If we're home we can delete our crumbs
+                md->crumbs = std::stack<Crumb>();
+            }
+            else if (!md->crumbs.empty())
+            {
+                Crumb c;
+                c = md->crumbs.top();
+                mob_walktoxy(md, c.x, c.y, 0);
+                // Eat our crumb if we're on top of it
+                if (md->bl_x == c.x && md->bl_y == c.y)
+                    md->crumbs.pop();
+            }
 #else
-          mob_walktoxy(md, md->spawn.x0, md->spawn.y0, 0);
+            }
 #endif
+            else
+                mob_walktoxy(md, md->bl_x, md->bl_y, 0);
         }
+
     }
 
     // Since he has finished walking, it stands by.

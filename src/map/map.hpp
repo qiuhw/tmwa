@@ -468,6 +468,10 @@ struct mob_data : block_list
 #ifdef BROKEN_PATHFIND
     std::stack<Crumb> crumbs;
 #endif
+    struct
+    {
+        unsigned guard:1;
+    } aiflags;
 };
 
 struct BlockLists
