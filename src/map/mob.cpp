@@ -881,7 +881,7 @@ int mob_changestate(dumb_ptr<mob_data> md, MS state, bool type)
             md->hp = md->target_id = md->attacked_id = 0;
             md->state.attackable = false;
 #ifdef BROKEN_PATHFIND
-            while (!md->crumbs.empty()) md->crumbs.pop();
+            md->crumbs = std::stack<Crumb>();
 #endif
         }
             break;
@@ -1724,7 +1724,7 @@ int mob_randomwalk(dumb_ptr<mob_data> md, tick_t tick)
  *------------------------------------------
  */
 static
-int mob_isathome(dumb_ptr<mob_data> md)
+bool mob_isathome(dumb_ptr<mob_data> md)
 {
   if (md->spawn.x0 == 0 && md->spawn.y0 == 0) /* If spawn is random.. anywhere is home */
     return 1;
@@ -1747,9 +1747,6 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
     dumb_ptr<map_session_data> tsd = NULL;
     dumb_ptr<block_list> tbl = NULL;
     dumb_ptr<flooritem_data> fitem;
-#ifdef BROKEN_PATHFIND
-    struct Crumb c;
-#endif
     int i, dx, dy, ret, dist;
     int attack_type = 0;
     MobMode mode;
@@ -1943,9 +1940,7 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
 #ifdef BROKEN_PATHFIND
                             // The target has moved enough where the mob needed to recalculate it's path
                             // Drop a breadcrumb we can follow home!
-                            c.x = md->bl_x;
-                            c.y = md->bl_y;
-                            md->crumbs.push(c);
+                            md->crumbs.push({md->bl_x, md->bl_y});
 #endif
                         }
                         while (ret && i < 5);
@@ -2057,17 +2052,17 @@ void mob_ai_sub_hard(dumb_ptr<block_list> bl, tick_t tick)
         }
 
         // Random movement
-	// Camel: Second test
 	if (mob_isathome(md)) { // Mob's at home. Randomly wander around.
-		mob_randomwalk(md, tick);
+	  mob_randomwalk(md, tick);
 #ifdef BROKEN_PATHFIND
-                // If we're home we can delete our crumbs
-                while (!md->crumbs.empty()) md->crumbs.pop();
+          // If we're home we can delete our crumbs
+          md->crumbs = std::stack<Crumb>();
 #endif
         }
         else {
 #ifdef BROKEN_PATHFIND
           if (!md->crumbs.empty()) {
+            Crumb c;
             c = md->crumbs.top();
             mob_walktoxy(md, c.x, c.y, 0); // Walk to the nearest crumb.
             if (md->bl_x == c.x && md->bl_y == c.y) // On top of crumb. Eat it.
@@ -2149,7 +2144,6 @@ void mob_ai_sub_lazy(dumb_ptr<block_list> bl, tick_t tick)
             // Since PC is in the same map, somewhat better negligent processing is carried out.
 
 	    // Camel: TODO: Walk or warp the mob home
-
 
             // It sometimes moves.
             if (random_::chance(MOB_LAZYMOVEPERC))

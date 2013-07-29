@@ -389,7 +389,8 @@ constexpr int MOB_XP_BONUS_BASE = 1024;
 constexpr int MOB_XP_BONUS_SHIFT = 10;
 
 #ifdef BROKEN_PATHFIND
-struct Crumb {
+struct Crumb
+{
   int x;
   int y;
 };
