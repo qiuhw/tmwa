@@ -1394,7 +1394,7 @@ void builtin_pow(ScriptState *st)
     a = conv_num(st, &AARGO2(2));
     b = conv_num(st, &AARGO2(3));
 
-#warning "This is silly"
+    // This is silly
     push_int(st->stack, ByteCode::INT, static_cast<int>(pow(a * 0.001, b)));
 
 }

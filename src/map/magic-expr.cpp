@@ -1059,7 +1059,7 @@ int fun_element_level(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 static
 int fun_is_exterior(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 {
-#warning "Evil assumptions!"
+    // Evil assumptions!
     RESULTINT = ARGLOCATION(0).m->name_[4] == '1';
     return 0;
 }
@@ -1122,7 +1122,7 @@ int fun_sqrt(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 static
 int fun_map_level(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 {
-#warning "Evil assumptions!"
+    // Evil assumptions!
     RESULTINT = ARGLOCATION(0).m->name_[4] - '0';
     return 0;
 }
@@ -1130,7 +1130,7 @@ int fun_map_level(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 static
 int fun_map_nr(dumb_ptr<env_t>, val_t *result, const_array<val_t> args)
 {
-#warning "Evil assumptions!"
+    // Evil assumptions!
     MapName mapname = ARGLOCATION(0).m->name_;
 
     RESULTINT = ((mapname[0] - '0') * 100)

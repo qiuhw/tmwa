@@ -17,7 +17,7 @@ void set_int_p(val_t *v, int i, TYPE t)
     v->v.v_int = i;
 }
 
-#warning "This code should die"
+// This code should die
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-macros"
 
