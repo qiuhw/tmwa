@@ -389,7 +389,7 @@ bool check_ip(struct in_addr ip)
 
     for (const AccessEntry& ae : access_allow)
     {
-#warning "TODO use an IPAddress4 and IPMask4 class"
+        // TODO use an IPAddress4 and IPMask4 class
         if (buf.startswith(ae) || check_ipmask(ip, ae))
         {
             flag = ACF::ALLOW;

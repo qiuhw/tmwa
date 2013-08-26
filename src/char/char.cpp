@@ -736,7 +736,7 @@ void create_online_files(void)
         if (fp2 != NULL)
         {
             // get time
-#warning "Need to convert/check the PHP code"
+            // Need to convert/check the PHP code
             timestamp_seconds_buffer timetemp;
             stamp_time(timetemp);
             // write heading
@@ -1367,7 +1367,7 @@ void parse_tologin(int fd)
                 if (RFIFOREST(fd) < 6)
                     return;
                 // Deletion of all characters of the account
-#warning "This comment is a lie, but it's still true."
+                // This comment is a lie, but it's still true.
                 // needs to use index because they may move during resize
                 for (int idx = 0; idx < char_data.size(); idx++)
                 {
