@@ -39,8 +39,6 @@
 #include "storage.hpp"
 #include "trade.hpp"
 
-#include "../poison.hpp"
-
 DMap<int, dumb_ptr<block_list>> id_db;
 
 UPMap<MapName, map_abstract> maps_db;
@@ -77,7 +75,7 @@ void map_delmap(MapName mapname);
 
 void SessionDeleter::operator()(SessionData *sd)
 {
-    really_delete1 static_cast<map_session_data *>(sd);
+    delete static_cast<map_session_data *>(sd);
 }
 
 bool extract(XString str, NpcEvent *ev)

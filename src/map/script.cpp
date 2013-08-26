@@ -35,8 +35,6 @@
 #include "skill.hpp"
 #include "storage.hpp"
 
-#include "../poison.hpp"
-
 constexpr bool DEBUG_DISP = false;
 constexpr bool DEBUG_RUN = false;
 

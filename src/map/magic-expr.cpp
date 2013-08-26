@@ -13,8 +13,6 @@
 #include "pc.hpp"
 #include "itemdb.hpp"
 
-#include "../poison.hpp"
-
 static
 void free_area(dumb_ptr<area_t> area)
 {

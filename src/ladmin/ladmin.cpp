@@ -18,8 +18,6 @@
 #include "../common/utils.hpp"
 #include "../common/version.hpp"
 
-#include "../poison.hpp"
-
 #define LADMIN_CONF_NAME        "conf/ladmin_athena.conf"
 
 static

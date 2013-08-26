@@ -11,8 +11,6 @@
 #include "cxxstdio.hpp"
 #include "utils.hpp"
 
-#include "../poison.hpp"
-
 struct TimerData
 {
     /// This will be reset on call, to avoid problems.

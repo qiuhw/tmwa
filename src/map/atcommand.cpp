@@ -34,8 +34,6 @@
 #include "tmw.hpp"
 #include "trade.hpp"
 
-#include "../poison.hpp"
-
 #define ATCOMMAND_FUNC(x) static \
 int atcommand_##x(const int fd, dumb_ptr<map_session_data> sd, ZString message)
 ATCOMMAND_FUNC(setup);

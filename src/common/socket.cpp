@@ -16,8 +16,6 @@
 //#include "mmo.hpp"
 #include "utils.hpp"
 
-#include "../poison.hpp"
-
 static
 fd_set readfds;
 int fd_max;

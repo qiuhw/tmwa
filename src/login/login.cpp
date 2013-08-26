@@ -29,8 +29,6 @@
 #include "../common/version.hpp"
 #include "../common/utils.hpp"
 
-#include "../poison.hpp"
-
 constexpr int MAX_SERVERS = 30;
 
 #define LOGIN_CONF_NAME "conf/login_athena.conf"

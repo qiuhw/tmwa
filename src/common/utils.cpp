@@ -8,8 +8,6 @@
 #include "cxxstdio.hpp"
 #include "extract.hpp"
 
-#include "../poison.hpp"
-
 //---------------------------------------------------
 // E-mail check: return 0 (not correct) or 1 (valid).
 //---------------------------------------------------

@@ -13,8 +13,6 @@
 #include "../common/random.hpp"
 #include "../common/socket.hpp"
 
-#include "../poison.hpp"
-
 constexpr int MAX_RANDITEM = 2000;
 
 // ** ITEMDB_OVERRIDE_NAME_VERBOSE **

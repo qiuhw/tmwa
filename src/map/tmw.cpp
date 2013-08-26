@@ -14,8 +14,6 @@
 #include "map.hpp"
 #include "pc.hpp"
 
-#include "../poison.hpp"
-
 static
 void tmw_AutoBan(dumb_ptr<map_session_data> sd, ZString reason, int length);
 static

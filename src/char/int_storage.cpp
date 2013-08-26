@@ -14,8 +14,6 @@
 #include "../common/mmo.hpp"
 #include "../common/socket.hpp"
 
-#include "../poison.hpp"
-
 // ファイル名のデフォルト
 // inter_config_read()で再設定される
 FString storage_txt = "save/storage.txt";

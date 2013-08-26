@@ -16,8 +16,6 @@
 #include "char.hpp"
 #include "inter.hpp"
 
-#include "../poison.hpp"
-
 FString party_txt = "save/party.txt";
 
 static

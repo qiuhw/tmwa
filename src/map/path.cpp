@@ -8,8 +8,6 @@
 
 #include "battle.hpp"
 
-#include "../poison.hpp"
-
 //#define PATH_STANDALONETEST
 
 constexpr int MAX_HEAP = 150;

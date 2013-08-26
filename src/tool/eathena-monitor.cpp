@@ -20,8 +20,6 @@
 #include "../common/io.hpp"
 #include "../common/utils.hpp"
 
-#include "../poison.hpp"
-
 #define LOGIN_SERVER "./login-server"
 #define MAP_SERVER "./map-server"
 #define CHAR_SERVER "./char-server"

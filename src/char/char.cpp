@@ -30,8 +30,6 @@
 #include "int_party.hpp"
 #include "int_storage.hpp"
 
-#include "../poison.hpp"
-
 static
 struct mmo_map_server server[MAX_MAP_SERVERS];
 static
@@ -102,7 +100,7 @@ struct char_session_data : SessionData
 
 void SessionDeleter::operator()(SessionData *sd)
 {
-    really_delete1 static_cast<char_session_data *>(sd);
+    delete static_cast<char_session_data *>(sd);
 }
 
 struct AuthFifoEntry

@@ -29,8 +29,6 @@
 #include "tmw.hpp"
 #include "trade.hpp"
 
-#include "../poison.hpp"
-
 #define DUMP_UNKNOWN_PACKET     1
 
 constexpr int EMOTE_IGNORED = 0x0e;

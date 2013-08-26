@@ -22,8 +22,6 @@
 #include "mob.hpp"
 #include "pc.hpp"
 
-#include "../poison.hpp"
-
 struct skill_name_db skill_names[] =
 {
     {SkillID::AC_OWL, "OWL", "Owl's_Eye"},

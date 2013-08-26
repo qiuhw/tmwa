@@ -27,8 +27,6 @@
 #include "pc.hpp"
 #include "skill.hpp"
 
-#include "../poison.hpp"
-
 constexpr interval_t MIN_MOBTHINKTIME = std::chrono::milliseconds(100);
 
 // Move probability in the negligent mode MOB (rate of 1000 minute)

@@ -19,8 +19,6 @@
 #include "pc.hpp"
 #include "storage.hpp"
 
-#include "../poison.hpp"
-
 static
 const int packet_len_table[0x20] =
 {

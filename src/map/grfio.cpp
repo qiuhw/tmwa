@@ -17,8 +17,6 @@
 #include "../common/extract.hpp"
 #include "../common/io.hpp"
 
-#include "../poison.hpp"
-
 static
 std::map<MapName, FString> load_resnametable()
 {

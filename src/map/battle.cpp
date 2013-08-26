@@ -17,8 +17,6 @@
 #include "pc.hpp"
 #include "skill.hpp"
 
-#include "../poison.hpp"
-
 struct Battle_Config battle_config;
 
 /*==========================================

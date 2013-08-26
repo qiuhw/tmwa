@@ -23,8 +23,6 @@
 #include "script.hpp"
 #include "skill.hpp"
 
-#include "../poison.hpp"
-
 static
 std::list<FString> npc_srcs;
 

@@ -16,8 +16,6 @@
 #include "pc.hpp"
 #include "skill.hpp"
 
-#include "../poison.hpp"
-
 /* used for local spell effects */
 constexpr int INVISIBLE_NPC = 127;
 

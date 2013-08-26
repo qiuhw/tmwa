@@ -12,8 +12,6 @@
 #include "socket.hpp"
 #include "timer.hpp"
 
-#include "../poison.hpp"
-
 // Added by Gabuzomeu
 //
 // This is an implementation of signal() using sigaction() for portability.

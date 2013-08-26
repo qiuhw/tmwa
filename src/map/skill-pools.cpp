@@ -5,8 +5,6 @@
 #include "battle.hpp"
 #include "pc.hpp"
 
-#include "../poison.hpp"
-
 SkillID skill_pool_skills[MAX_POOL_SKILLS];
 int skill_pool_skills_size = 0;
 

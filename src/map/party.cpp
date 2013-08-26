@@ -15,8 +15,6 @@
 #include "pc.hpp"
 #include "tmw.hpp"
 
-#include "../poison.hpp"
-
 // 座標やＨＰ送信の間隔
 constexpr interval_t PARTY_SEND_XYHP_INVERVAL = std::chrono::seconds(1);
 

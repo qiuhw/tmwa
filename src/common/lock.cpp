@@ -7,8 +7,6 @@
 #include "cxxstdio.hpp"
 #include "socket.hpp"
 
-#include "../poison.hpp"
-
 /// number of backups to keep
 static
 const int backup_count = 10;

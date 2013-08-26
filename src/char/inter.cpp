@@ -20,8 +20,6 @@
 #include "int_party.hpp"
 #include "int_storage.hpp"
 
-#include "../poison.hpp"
-
 // Existence time of Wisp/page data (60 seconds)
 // that is the waiting time of answers of all map-servers
 constexpr std::chrono::minutes WISDATA_TTL = std::chrono::minutes(1);

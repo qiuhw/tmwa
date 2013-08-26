@@ -6,8 +6,6 @@
 #include "random.hpp"
 #include "utils.hpp"
 
-#include "../poison.hpp"
-
 // auxilary data
 /*
 sin() constant table

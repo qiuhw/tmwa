@@ -16,8 +16,6 @@
 #include "map.hpp"
 #include "pc.hpp"
 
-#include "../poison.hpp"
-
 static
 Map<int, struct storage> storage_db;
 

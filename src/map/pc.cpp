@@ -30,8 +30,6 @@
 #include "storage.hpp"
 #include "trade.hpp"
 
-#include "../poison.hpp"
-
 // PVP順位計算の間隔
 constexpr std::chrono::milliseconds PVP_CALCRANK_INTERVAL =
         std::chrono::seconds(1);

@@ -5,8 +5,6 @@
 #include "magic-interpreter.hpp"
 #include "pc.hpp"
 
-#include "../poison.hpp"
-
 #undef DEBUG
 
 /// Return a pair of strings, {spellname, parameter}
