@@ -1,18 +1,10 @@
 #include <arpa/inet.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 
 #include <netdb.h>
 #include <unistd.h>
 
-#include <cstdlib>
-#include <cstring>
-#include <ctime>
-
-#include <algorithm>
-#include <array>
 #include <fstream>
-#include <type_traits>
 
 #include "../common/core.hpp"
 #include "../common/cxxstdio.hpp"
