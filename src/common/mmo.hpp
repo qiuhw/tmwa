@@ -2,7 +2,6 @@
 #ifndef MMO_HPP
 #define MMO_HPP
 
-# include "sanity.hpp"
 # include "timer.t.hpp"
 # include "utils2.hpp"
 

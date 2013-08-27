@@ -3,8 +3,6 @@
 
 # include "random.t.hpp"
 
-# include "sanity.hpp"
-
 # include <random>
 
 // This is not namespace random since that collides with a C function,

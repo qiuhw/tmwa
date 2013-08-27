@@ -1,8 +1,6 @@
 #ifndef LOCK_HPP
 #define LOCK_HPP
 
-#include "sanity.hpp"
-
 #include <cstdio>
 
 #include "strings.hpp"

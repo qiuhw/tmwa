@@ -1,7 +1,7 @@
 #ifndef UTILS2_HPP
 #define UTILS2_HPP
 
-#include "sanity.hpp"
+#include <cstddef>
 
 #include <algorithm>
 #include <functional>

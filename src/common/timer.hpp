@@ -3,8 +3,6 @@
 
 # include "timer.t.hpp"
 
-# include "sanity.hpp"
-
 # include "strings.hpp"
 
 // updated automatically when using milli_clock::now()

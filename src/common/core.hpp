@@ -1,8 +1,6 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include "sanity.hpp"
-
 #include "strings.hpp"
 
 /// core.c contains a server-independent main() function
